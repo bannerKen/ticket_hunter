@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 def main():
@@ -9,13 +10,16 @@ def main():
     # options.add_argument(f'user-agent={user_agent}')
     # options.add_argument('--headless')
     # options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(options=options)
+    # driver = webdriver.Chrome(options=options)
+    driver_path = '/Users/sehuang/Desktop/chromedriver_mac64/chromedriver'
+    driver = webdriver.Chrome()
     depa = "TPE"
     dest = "OKA"
     trip = "oneway"
     OUT_DATE = conver_date("2024-05-01")
     IN_DATE = conver_date("2024-05-30")
     url = f"https://flight.eztravel.com.tw/tickets-{trip}-{depa}-{dest}/?outbounddate={OUT_DATE}&inbounddate={IN_DATE}&dport=&aport=&adults=1&children=0&infants=0&direct=false&cabintype=&airline=&searchbox=s"
+    print(f'url: {url}')
     driver.get(url)
     
     time.sleep(10)
@@ -23,23 +27,16 @@ def main():
     flight_list = flight_list_container.find_element(By.TAG_NAME, "ul")
     tickets = flight_list.find_elements(By.TAG_NAME, "li")
     for ticket in tickets:
-        print(f'ticket: {ticket}')
         try:
             flight_single = ticket.find_element(By.CLASS_NAME, "flight-single")
-
             flight_info = flight_single.find_element(By.CLASS_NAME, "flight-info")
-            flight_info_item = flight_info.find_element(By.CLASS_NAME, "flight-list-item")
-            flight_list_name = flight_info_item.find_element(By.CLASS_NAME, "flight-list-name")
-            flight_list_name_div = flight_list_name.find_element(By.CLASS_NAME, "list-name")
-            flight_list_name_span = flight_list_name_div.find_element(By.TAG_NAME, "span")
-            flight_list_name_span_span = flight_list_name_span.find_element(By.TAG_NAME, "span")
-            flight_list_name_span_span_span = flight_list_name_span_span.find_element(By.TAG_NAME, "span")
-            print(f'flight_list_name_span_span_span: {flight_list_name_span_span_span.text}')
-
-            # flight_seat_list = flight_single.find_element(By.CLASS_NAME, "flight-seat-list")
-
+            company = flight_info.find_element(By.CLASS_NAME, 'el-popover__reference')
+            depart = flight_info.find_element(By.CLASS_NAME, 'departure-sec').find_element(By.CLASS_NAME, 'time-detail')
+            arriv = flight_info.find_element(By.CLASS_NAME, 'arrival-sec').find_element(By.CLASS_NAME, 'time-detail')
+            print(f'name: {company.text} time: {depart.text}->{arriv.text}')
+            find_price(flight_single)
         except:
-            print("No flight-single")
+            pass
     print(f'len: {len(tickets)}')
     # print(f'flight_list: {flight_list}')
 
@@ -53,5 +50,11 @@ def conver_date(date):
 def find_e(parent, by, value):
     return parent.find_element(by, value)
 
+def find_price(flight_single):
+    flight_seat_list = flight_single.find_element(By.CLASS_NAME, 'flight-seat-list')
+    flight_seats = flight_seat_list.find_elements(By.CLASS_NAME, 'flight-seat')
+    for seat in flight_seats:
+        flight_seat_price = seat.find_element(By.CLASS_NAME, 'all-money')
+        print(f'price: {flight_seat_price.text}')
 if __name__ == "__main__":
     main()
