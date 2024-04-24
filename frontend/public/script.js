@@ -133,30 +133,30 @@ async function fetchData() {
   }
 }
 
-document
-  .getElementById("inputMonth")
-  .addEventListener("change", async function (event) {
-    const requestData = {
-      month: this.value,
-    };
-    try {
-      const response = await fetch("/data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
-      const data = await response.json();
-      // inputResult(data);
-      console.log("Server response:", data);
-    } catch (error) {
-      console.error("Error sending data:", error);
-    }
+// document
+//   .getElementById("inputMonth")
+//   .addEventListener("change", async function (event) {
+//     const requestData = {
+//       month: this.value,
+//     };
+//     try {
+//       const response = await fetch("/data", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(requestData),
+//       });
+//       const data = await response.json();
+//       // inputResult(data);
+//       console.log("Server response:", data);
+//     } catch (error) {
+//       console.error("Error sending data:", error);
+//     }
 
     
-    // console.log(`Weekend Dates for ${month} 2024:`);
-  });
+//     // console.log(`Weekend Dates for ${month} 2024:`);
+//   });
 
   function displayResult(data, friArray, sunArray, requestArray) {
     const resultContainer = document.getElementById("resultContainer");
@@ -262,3 +262,28 @@ function populateDropdown(position, optionType) {
 }
 
 
+// Sabrina{4/25}: for c++ testing
+document
+  .getElementById("inputMonth")
+  .addEventListener("change", async function (event) {
+    const requestData = {
+      number: this.value,
+    };
+    try {
+      const response = await fetch("http://localhost:8080/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+      const data = await response.json();
+      // inputResult(data);
+      console.log("Server response:", data);
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
+
+    
+    // console.log(`Weekend Dates for ${month} 2024:`);
+  });
