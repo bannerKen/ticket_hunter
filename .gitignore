@@ -33,5 +33,6 @@ Temporary Items
 
 node_modules/
 .env
+.vscode/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos
