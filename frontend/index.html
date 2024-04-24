@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Price</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        p {
+            text-align: center;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles for the loading animation */
+        #loading {
+            display: none;
+            position: fixed;
+            top: 24.5%;
+            left: 58.5%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        #loading img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Check Flight Price</h1>
+        <!-- <form id="inputForm"> -->
+        <div class="option-container" style="display: flex;justify-content: center;">
+            <label for="year" style="padding: 5px">Select Year: </label>
+            <select id="inputYear" name="year">
+                <!-- options -->
+            </select>
+            <label for="month" style="padding: 5px">Select Month: </label>
+            <select id="inputMonth" name="month">
+                <!-- options -->
+            </select>
+            <!-- <label for="depart" style="margin-left: 10px; padding: 5px">Select Departure: </label>
+            <select id="inputDepart" name="depart"> -->
+            <!-- options -->
+            <!-- </select> -->
+        </div>
+        <!-- <button type="submit">Submit</button> -->
+        <!-- </form> -->
+        <!-- <select id="startDateDropdown"> -->
+        <!-- options -->
+        <!-- </select> -->
+        <!-- <select id="endDateDropdown"> -->
+        <!-- options -->
+        <!-- </select> -->
+        <!-- <div id="inputResult"></div> -->
+        <button id="fetchDataBtn">Fetch Price</button>
+        <div id="loading">
+            <img src="loading.gif" alt="Loading...">
+        </div>
+        <div id="resultContainer" style="display: flex;justify-content: center;"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
