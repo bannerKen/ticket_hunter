@@ -18,7 +18,7 @@ int main() {
         // 解析 JSON 請求主體，假設其格式為 { "number": 5 }
         json req_json = json::parse(req.body);
 
-        // Sabrina
+        // Sabrina{4/24}:
         std::cout << "Received JSON data: " << req.body << std::endl;
 
         // 從 JSON 中取得數字
@@ -31,7 +31,7 @@ int main() {
         json res_json;
         res_json["result"] = result;
 
-        // Sabrina:CORS
+        // Sabrina{4/24}:handle CORS
         res.set_header("Access-Control-Allow-Origin", "*");
         res.set_header("Access-Control-Allow-Methods", "POST, OPTIONS");
         res.set_header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
@@ -48,7 +48,7 @@ int main() {
         
     });
 
-     // Sabrina: Preflight
+     // Sabrina{4/24}:handle CORS
     svr.Options("/add", [](const Request& req, Response& res) {
         res.set_header("Access-Control-Allow-Origin", "*");
         res.set_header("Access-Control-Allow-Methods", "POST, OPTIONS");
