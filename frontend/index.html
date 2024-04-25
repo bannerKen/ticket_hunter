@@ -14,7 +14,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 100px auto;
             padding: 20px;
             background-color: #ffffff;
@@ -66,19 +66,30 @@
     <div class="container">
         <h1>Check Flight Price</h1>
         <!-- <form id="inputForm"> -->
-        <div class="option-container" style="display: flex;justify-content: center;">
-            <label for="year" style="padding: 5px">Select Year: </label>
+        <div class="time-container" style="display: flex;justify-content: center;">
+            <label for="year" style="padding: 5px">Year: </label>
             <select id="inputYear" name="year">
                 <!-- options -->
             </select>
-            <label for="month" style="padding: 5px">Select Month: </label>
+            <label for="month" style="padding: 5px">Month: </label>
             <select id="inputMonth" name="month">
                 <!-- options -->
             </select>
-            <!-- <label for="depart" style="margin-left: 10px; padding: 5px">Select Departure: </label>
-            <select id="inputDepart" name="depart"> -->
-            <!-- options -->
-            <!-- </select> -->
+
+        </div>
+        <div class="options-container" style="display: flex;justify-content: center; margin-top: 10px;">
+            <label for=" depart" style="margin-left: 10px; padding: 5px">Departure: </label>
+            <select id="inputDepart" name="depart">
+                <!-- options -->
+            </select>
+            <label for="arrival" style="margin-left: 10px; padding: 5px">Arrival: </label>
+            <select id="inputArrival" name="arrival">
+                <!-- options -->
+            </select>
+            <label for="adult" style="margin-left: 10px; padding: 5px">Adults: </label>
+            <select id="inputAdult" name="v">
+                <!-- options -->
+            </select>
         </div>
         <!-- <button type="submit">Submit</button> -->
         <!-- </form> -->
