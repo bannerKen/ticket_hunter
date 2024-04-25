@@ -29,35 +29,69 @@ const yearOptions = [
   "2034"
 ].map(year => ({ value: year, textContent: year }));
 
+const departOptions = [
+  { value: "TPE", textContent: "Taipei" },
+  // { value: "2", textContent: "February" },
+  // { value: "3", textContent: "March" },
+  // { value: "4", textContent: "April" },
+  // { value: "5", textContent: "May" },
+  // { value: "6", textContent: "June" },
+  // { value: "7", textContent: "July" },
+  // { value: "8", textContent: "August" },
+  // { value: "9", textContent: "September" },
+  // { value: "10", textContent: "October" },
+  // { value: "11", textContent: "November" },
+  // { value: "12", textContent: "December" }
+];
+
+const arrivalOptions = [
+  { value: "TYO", textContent: "Tokyo" },
+  // { value: "2", textContent: "February" },
+  // { value: "3", textContent: "March" },
+  // { value: "4", textContent: "April" },
+  // { value: "5", textContent: "May" },
+  // { value: "6", textContent: "June" },
+  // { value: "7", textContent: "July" },
+  // { value: "8", textContent: "August" },
+  // { value: "9", textContent: "September" },
+  // { value: "10", textContent: "October" },
+  // { value: "11", textContent: "November" },
+  // { value: "12", textContent: "December" }
+];
+
+const adultOptions = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+].map(adult => ({ value: adult, textContent: adult }));
+
 
 populateDropdown("inputYear",yearOptions);
 populateDropdown("inputMonth",monthOptions);
+populateDropdown("inputDepart",departOptions);
+populateDropdown("inputArrival",arrivalOptions);
+populateDropdown("inputAdult",adultOptions);
 
-// async function fetchData() {
-//   try {
-//     const response = await fetch("http://localhost:3000/flights");
-//     const data = await response.json();
-//     console.log(data.carrier_options);
-//     displayResult(data);
-//     const year = 2024;
-//     const month = parseInt(document.getElementById("inputResult").textContent);
-//     const weekendDates = getWeekendDates(year, month);
 
-//     console.log(`Weekend Dates for ${month} 2024:`);
-//     weekendDates.forEach((date) => console.log(date));
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//   }
-// }
 async function fetchData() {
+
   // Show loading animation
   document.getElementById("loading").style.display = "block";
-  // let requestData;
   const requestArray =[];
 
   try {
     const year = parseInt(document.getElementById("inputYear").value);
     const month = parseInt(document.getElementById("inputMonth").value);
+    const depart = document.getElementById("inputDepart").value;
+    const arrival = document.getElementById("inputArrival").value;
+    const adult = document.getElementById("inputAdult").value;
     const weekendDates = getWeekendDates(year, month);
     const friArray = [];
     const sunArray = [];
@@ -80,13 +114,15 @@ async function fetchData() {
  const sunDate = sunArray[index];
     const requestData = {
       trip: 2,
-      dep_location_codes: "TPE",
-      arr_location_codes: "TYO",
+      // dep_location_codes: "TPE",
+      // arr_location_codes: "TYO",
+      dep_location_codes: depart,
+      arr_location_codes: arrival,
       dep_location_types: 2,
       arr_location_types: 2,
       dep_dates: friDate,
       return_date: sunDate,
-      adult: 1,
+      adult: adult,
       child: 0,
       cabin_class: 2,
       is_direct_flight_only: true,
@@ -164,6 +200,7 @@ async function fetchData() {
   
     // Iterate over each object in the data array
     data.forEach((item, index) => {
+
       // Access the carrier_options array in each object
       const carrierOptions = item.carrier_options;
   
@@ -186,12 +223,6 @@ async function fetchData() {
     resultContainer.innerHTML = tableHtml;
   }
   
-
-function inputResult(data) {
-  const resultContainer = document.getElementById("inputResult");
-  // resultContainer.textContent = JSON.stringify(data);
-  resultContainer.textContent = data;
-}
 
 
 function getWeekendDates(year, month) {
@@ -240,11 +271,9 @@ function getWeekendDates(year, month) {
 
 function populateDropdown(position, optionType) {
   const container = document.getElementById(position);
-  // const endDropdown = document.getElementById("endDateDropdown");
 
   // Clear existing options
   container.innerHTML = "";
-  // endDropdown.innerHTML = "";
 
   optionType.forEach((data) => {
     const option = document.createElement("option");
@@ -252,13 +281,6 @@ function populateDropdown(position, optionType) {
     option.value = data.value;
     container.appendChild(option);
   });
-
-  // weekendDates.forEach((date) => {
-  //   const option = document.createElement("option");
-  //   option.textContent = date;
-  //   option.value = date;
-  //   endDropdown.appendChild(option);
-  // });
 }
 
 
