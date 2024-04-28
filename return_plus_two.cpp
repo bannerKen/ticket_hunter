@@ -22,10 +22,11 @@ int main() {
         std::cout << "Received JSON data: " << req.body << std::endl;
 
         // 從 JSON 中取得數字
-        int number = req_json["number"];
+        std::string number = req_json["number"];
 
+        int number1 = stoi(number);
         // 執行運算
-        int result = number + 2;
+        int result = number1 + 2;
 
         // 將結果轉換為 JSON 格式
         json res_json;
