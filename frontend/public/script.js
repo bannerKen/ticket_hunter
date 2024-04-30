@@ -1,5 +1,42 @@
 document.getElementById("fetchDataBtn").addEventListener("click", fetchData);
 
+// Sabrina{4/30}: for c++ testing
+document.getElementById("testingBtn").addEventListener("click", testDate);
+
+let startDay = "";
+let endDay = "";
+
+// Sabrina{4/30}: create Calendar
+document.addEventListener("DOMContentLoaded", function (event) {
+  console.log("DOMContentLoaded event fired");
+  const calendar = new VanillaCalendar("#calendar", {
+    type: "default",
+    settings: {
+      visibility: {
+        theme: "dark",
+      },
+      iso8601: false,
+      range: {
+        disablePast: true,
+      },
+      selection: {
+        day: "multiple-ranged",
+      },
+    },
+    actions: {
+      clickDay(event, self) {
+        let selectedDates = self.selectedDates;
+        let length = selectedDates.length;
+        startDay = selectedDates[0];
+        endDay = selectedDates[length - 1];
+        console.log(selectedDates[0], selectedDates[length - 1]);
+        return startDay, endDay;
+      },
+    },
+  });
+  calendar.init();
+});
+
 const monthOptions = [
   { value: "1", textContent: "January" },
   { value: "2", textContent: "February" },
@@ -59,10 +96,10 @@ const adultOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"].map(
   (adult) => ({ value: adult, textContent: adult })
 );
 
-populateDropdown("inputYear", yearOptions);
-populateDropdown("inputMonth", monthOptions);
-populateDropdown("inputStartDay", weekOptions);
-populateDropdown("inputEndDay", weekOptions);
+// populateDropdown("inputYear", yearOptions);
+// populateDropdown("inputMonth", monthOptions);
+// populateDropdown("inputStartDay", weekOptions);
+// populateDropdown("inputEndDay", weekOptions);
 populateDropdown("inputDepart", destOptions);
 populateDropdown("inputArrival", destOptions);
 populateDropdown("inputAdult", adultOptions);
@@ -73,10 +110,10 @@ async function fetchData() {
   const requestArray = [];
 
   try {
-    const year = parseInt(document.getElementById("inputYear").value);
-    const month = parseInt(document.getElementById("inputMonth").value);
-    const startDay = parseInt(document.getElementById("inputStartDay").value);
-    const endDay = parseInt(document.getElementById("inputEndDay").value);
+    // const year = parseInt(document.getElementById("inputYear").value);
+    // const month = parseInt(document.getElementById("inputMonth").value);
+    // const startDay = parseInt(document.getElementById("inputStartDay").value);
+    // const endDay = parseInt(document.getElementById("inputEndDay").value);
     const depart = document.getElementById("inputDepart").value;
     const arrival = document.getElementById("inputArrival").value;
     const adult = document.getElementById("inputAdult").value;
@@ -274,34 +311,24 @@ function populateDropdown(position, optionType) {
 }
 
 // Sabrina{4/25}: for c++ testing
-// Sabrina{4/30}: for c++ testing, change "adult" dropdown to trigger /add api
-document
-  .getElementById("inputAdult")
-  .addEventListener("change", async function (event) {
-    const year = parseInt(document.getElementById("inputYear").value);
-    const month = parseInt(document.getElementById("inputMonth").value);
-    const startDay = parseInt(document.getElementById("inputStartDay").value);
-    const endDay = parseInt(document.getElementById("inputEndDay").value);
-    const requestData = {
-      year: year,
-      month: month,
-      startDay: startDay,
-      endDay: endDay,
-    };
-    try {
-      const response = await fetch("http://localhost:8080/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
-      const data = await response.json();
-      // inputResult(data);
-      console.log("Server response:", data);
-    } catch (error) {
-      console.error("Error sending data:", error);
-    }
-
-    // console.log(`Weekend Dates for ${month} 2024:`);
-  });
+// Sabrina{4/30}: update reqBody for testing and function name
+async function testDate() {
+  const requestData = {
+    startDay: startDay,
+    endDay: endDay,
+  };
+  try {
+    const response = await fetch("http://localhost:8080/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+    const data = await response.json();
+    // inputResult(data);
+    console.log("Server response:", data);
+  } catch (error) {
+    console.error("Error sending data:", error);
+  }
+}
