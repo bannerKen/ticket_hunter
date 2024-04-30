@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "node-fetch": "^3.3.2",
-    "puppeteer": "^22.6.5"
+    "puppeteer": "^22.6.5",
+    "vanilla-calendar-pro": "^2.9.6"
   }
 }
