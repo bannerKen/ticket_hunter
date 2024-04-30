@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/build/vanilla-calendar.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-calendar-pro/build/vanilla-calendar.min.js" defer></script>
     <title>Flight Price</title>
     <style>
         body {
@@ -27,7 +30,8 @@
             text-align: center;
         }
 
-        button {
+        /* Sabrina{4/30}: update class name to avoid conflict with calendar  */
+        .ui-button {
             display: block;
             margin: 20px auto;
             padding: 10px 20px;
@@ -40,7 +44,7 @@
             transition: background-color 0.3s;
         }
 
-        button:hover {
+        .ui-button:hover {
             background-color: #0056b3;
         }
 
@@ -63,57 +67,46 @@
 
 <body>
 
-    <div class="container">
+    <div class="container" style="display: flex;flex-direction: column; align-items: center;">
         <h1>Check Flight Price</h1>
-        <!-- <form id="inputForm"> -->
-        <div class="time-container" style="display: flex;justify-content: center;">
+        <!-- <div class="time-container" style="display: flex;justify-content: center;">
             <label for="year" style="padding: 5px">Year: </label>
             <select id="inputYear" name="year">
-                <!-- options -->
             </select>
             <label for="month" style="padding: 5px">Month: </label>
             <select id="inputMonth" name="month">
-                <!-- options -->
             </select>
             <label for="startDay" style="padding: 5px">Weekdays: </label>
             <select id="inputStartDay" name="startDay">
-                <!-- options -->
             </select>
             <label for="endDay" style="padding: 5px">-</label>
             <select id="inputEndDay" name="endDay">
-                <!-- options -->
             </select>
-        </div>
+        </div> -->
         <div class="options-container" style="display: flex;justify-content: center; margin-top: 10px;">
             <label for=" depart" style="margin-left: 10px; padding: 5px">Departure: </label>
             <select id="inputDepart" name="depart">
-                <!-- options -->
             </select>
             <label for="arrival" style="margin-left: 10px; padding: 5px">Arrival: </label>
             <select id="inputArrival" name="arrival">
-                <!-- options -->
             </select>
             <label for="adult" style="margin-left: 10px; padding: 5px">Adults: </label>
             <select id="inputAdult" name="v">
-                <!-- options -->
             </select>
         </div>
-        <!-- <button type="submit">Submit</button> -->
-        <!-- </form> -->
-        <!-- <select id="startDateDropdown"> -->
-        <!-- options -->
-        <!-- </select> -->
-        <!-- <select id="endDateDropdown"> -->
-        <!-- options -->
-        <!-- </select> -->
-        <!-- <div id="inputResult"></div> -->
-        <button id="fetchDataBtn">Fetch Price</button>
+        <!-- Sabrina{4/30}: added calendar -->
+        <div id="calendar-container" style="margin-top: 20px">
+            <div id="calendar"></div>
+        </div>
+        <!-- Sabrina{4/30}: for c++ testing -->
+        <button id="testingBtn" class="ui-button">Testing</button>
+        <button id="fetchDataBtn" class="ui-button">Fetch Price</button>
         <div id="loading">
             <img src="loading.gif" alt="Loading...">
         </div>
         <div id="resultContainer" style="display: flex;justify-content: center;"></div>
-    </div>
 
+    </div>
     <script src="script.js"></script>
 </body>
 
