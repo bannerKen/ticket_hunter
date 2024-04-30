@@ -15,6 +15,16 @@ const monthOptions = [
   { value: "12", textContent: "December" },
 ];
 
+const weekOptions = [
+  { value: "1", textContent: "Monday" },
+  { value: "2", textContent: "Tuesday" },
+  { value: "3", textContent: "Wednesday" },
+  { value: "4", textContent: "Thursday" },
+  { value: "5", textContent: "Friday" },
+  { value: "6", textContent: "Saturday" },
+  { value: "7", textContent: "Sunday" },
+];
+
 const yearOptions = [
   "2024",
   "2025",
@@ -51,6 +61,8 @@ const adultOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"].map(
 
 populateDropdown("inputYear", yearOptions);
 populateDropdown("inputMonth", monthOptions);
+populateDropdown("inputStartDay", weekOptions);
+populateDropdown("inputEndDay", weekOptions);
 populateDropdown("inputDepart", destOptions);
 populateDropdown("inputArrival", destOptions);
 populateDropdown("inputAdult", adultOptions);
@@ -63,6 +75,8 @@ async function fetchData() {
   try {
     const year = parseInt(document.getElementById("inputYear").value);
     const month = parseInt(document.getElementById("inputMonth").value);
+    const startDay = parseInt(document.getElementById("inputStartDay").value);
+    const endDay = parseInt(document.getElementById("inputEndDay").value);
     const depart = document.getElementById("inputDepart").value;
     const arrival = document.getElementById("inputArrival").value;
     const adult = document.getElementById("inputAdult").value;
@@ -260,11 +274,19 @@ function populateDropdown(position, optionType) {
 }
 
 // Sabrina{4/25}: for c++ testing
+// Sabrina{4/30}: for c++ testing, change "adult" dropdown to trigger /add api
 document
-  .getElementById("inputMonth")
+  .getElementById("inputAdult")
   .addEventListener("change", async function (event) {
+    const year = parseInt(document.getElementById("inputYear").value);
+    const month = parseInt(document.getElementById("inputMonth").value);
+    const startDay = parseInt(document.getElementById("inputStartDay").value);
+    const endDay = parseInt(document.getElementById("inputEndDay").value);
     const requestData = {
-      number: this.value,
+      year: year,
+      month: month,
+      startDay: startDay,
+      endDay: endDay,
     };
     try {
       const response = await fetch("http://localhost:8080/add", {
