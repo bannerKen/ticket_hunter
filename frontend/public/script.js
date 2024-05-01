@@ -314,8 +314,8 @@ function populateDropdown(position, optionType) {
 // Sabrina{4/30}: update reqBody for testing and function name
 async function testDate() {
   const requestData = {
-    startDay: startDay,
-    endDay: endDay,
+    startDate: startDay,
+    endDate: endDay,
   };
   try {
     const response = await fetch("http://localhost:8080/add", {
