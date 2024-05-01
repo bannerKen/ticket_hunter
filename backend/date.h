@@ -1,9 +1,11 @@
 /*
  * date.h
  *
- *  Created on: 2024¦~5¤ë1¤é
+ *  Created on: 2024Â¦~5Â¤Ã«1Â¤Ã©
  *      Author: Sheep
  */
+#ifndef date_H_
+#define date_H_
 
 using namespace std;
 #include <vector>
@@ -32,4 +34,4 @@ vector<pair<string,string>> getStartAndEndDay(string Startyear, string Startmont
 int getdayOfTrip(int syear, int smonth, int sday,
 				 int eyear, int emonth, int eday);
 
-
+#endif
