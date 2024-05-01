@@ -310,15 +310,23 @@ function populateDropdown(position, optionType) {
   });
 }
 
-// Sabrina{4/25}: for c++ testing
+// Sabrina{4/25}: for c++ testing: g++ -g -Wall -std=c++11 -o main return_date_test.cpp && ./main;
 // Sabrina{4/30}: update reqBody for testing and function name
 async function testDate() {
+  const depart = document.getElementById("inputDepart").value;
+  const arrival = document.getElementById("inputArrival").value;
+  const adult = document.getElementById("inputAdult").value;
+
   const requestData = {
+    depart: depart,
+    arrival: arrival,
+    adult: adult,
     startDate: startDay,
     endDate: endDay,
   };
+
   try {
-    const response = await fetch("http://localhost:8080/add", {
+    const response = await fetch("http://localhost:8080/date", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -326,8 +334,30 @@ async function testDate() {
       body: JSON.stringify(requestData),
     });
     const data = await response.json();
-    // inputResult(data);
     console.log("Server response:", data);
+
+    // Sabrina{5/1}: response sample = [
+    //     {
+    //       "endDate": "2024-5-3",
+    //       "startDate": "2024-5-1"
+    //   },
+    //   {
+    //       "endDate": "2024-5-10",
+    //       "startDate": "2024-5-8"
+    //   },
+    //   {
+    //       "endDate": "2024-5-17",
+    //       "startDate": "2024-5-15"
+    //   },
+    //   {
+    //       "endDate": "2024-5-24",
+    //       "startDate": "2024-5-22"
+    //   },
+    //   {
+    //       "endDate": "2024-5-31",
+    //       "startDate": "2024-5-29"
+    //   }
+    // ]
   } catch (error) {
     console.error("Error sending data:", error);
   }
