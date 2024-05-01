@@ -6,63 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- sabrina{5/1}:added vanilla-calendar css, js -->
     <link href="vanilla-calendar/vanilla-calendar.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <script src="vanilla-calendar/vanilla-calendar.min.js" defer></script>
     <title>Flight Price</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1,
-        p {
-            text-align: center;
-        }
-
-        /* Sabrina{4/30}: update class name to avoid conflict with calendar  */
-        .ui-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .ui-button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Styles for the loading animation */
-        #loading {
-            display: none;
-            position: fixed;
-            top: 37%;
-            left: 62%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-        }
-
-        #loading img {
-            width: 20px;
-            height: 20px;
-        }
-    </style>
 </head>
 
 <body>
