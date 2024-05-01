@@ -16,6 +16,37 @@ using namespace std;
 #include <ctime>
 #include <ratio>
 
+/* getdayOfTrip
+ *
+ * Description : return how many day between the two date
+ *
+ * */
+int getdayOfTrip(int syear, int smonth, int sday,
+				 int eyear, int emonth, int eday){
+
+	tm start_date = {};
+	start_date.tm_year = syear - 1900;
+	start_date.tm_mon = smonth-1; // 2
+	start_date.tm_mday = sday;
+
+	tm end_date = {};
+	end_date.tm_year = eyear - 1900;
+	end_date.tm_mon = emonth-1; // 4
+	end_date.tm_mday = eday;
+
+
+	chrono::system_clock::time_point start_tp = chrono::system_clock::from_time_t(std::mktime(&start_date));
+	chrono::system_clock::time_point end_tp = chrono::system_clock::from_time_t(std::mktime(&end_date));
+
+
+	chrono::duration<double> duration = end_tp - start_tp;
+	double days = duration.count() / (60 * 60 * 24);
+
+
+	return days;
+}
+
+
 /* getStartAndEndDay(string year, string month, string day)
  *
  * Description : generate the date (4 group)
@@ -65,34 +96,6 @@ vector<pair<string,string>> getStartAndEndDay(string Startyear, string Startmont
 }
 
 
-/* getdayOfTrip
- *
- * Description : return how many day between the two date
- *
- * */
-int getdayOfTrip(int syear, int smonth, int sday,
-				 int eyear, int emonth, int eday){
 
-	tm start_date = {};
-	start_date.tm_year = syear - 1900;
-	start_date.tm_mon = smonth-1; // 2
-	start_date.tm_mday = sday;
-
-	tm end_date = {};
-	end_date.tm_year = eyear - 1900;
-	end_date.tm_mon = emonth-1; // 4
-	end_date.tm_mday = eday;
-
-
-	chrono::system_clock::time_point start_tp = chrono::system_clock::from_time_t(std::mktime(&start_date));
-	chrono::system_clock::time_point end_tp = chrono::system_clock::from_time_t(std::mktime(&end_date));
-
-
-	chrono::duration<double> duration = end_tp - start_tp;
-	double days = duration.count() / (60 * 60 * 24);
-
-
-	return days;
-}
 
 #endif
