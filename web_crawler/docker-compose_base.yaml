@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./chimei_app
+    image: chimei_weighbridge_form_app 
+    container_name: chimei_weighbridge_form_app
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    restart: unless-stopped
+    command: uvicorn app:app --reload --host 0.0.0.0 --port 8080
+
+  twcc_db:
+    build: ./mysql
+    image: chimei_weighbridge_form_db                                                                                                                                      
+    container_name: chimei_weighbridge_form_db                                                                                                                             
+    restart: unless-stopped
+    environment:
+      - MYSQL_USER=eray
+      - MYSQL_PASSWORD=80661707
+      - MYSQL_ROOT_PASSWORD=80661707
+      - MYSQL_DATABASE=chimei
+      - LANG=C.UTF-8
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+  
+volumes:
+  mysql_data:
+    

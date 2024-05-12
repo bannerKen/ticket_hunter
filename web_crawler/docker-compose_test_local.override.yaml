@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    environment:
+      - TESTING=local
+    ports:
+      - 8080:8080
+    volumes:
+      - ./chimei_app:/app
+    
+  twcc_db:
+    ports: 
+      - 3306:3306
+    # volumes:
+    #   - ./mysql/sql:/docker-entrypoint-initdb.d
+    
+  mosquitto:
+    build: ./mosquitto
+    restart: unless-stopped
+    ports:
+      - '1883:1883'
+      - '9001:9001'
+    volumes:
+      - ./mosquitto/data:/mosquitto/data
