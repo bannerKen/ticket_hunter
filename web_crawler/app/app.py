@@ -1,30 +1,51 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Body, Query
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
 import uvicorn
-
-from ticket_hunter import ticket_hunter 
+from typing import Annotated, List
+from ticket_hunter import TicketHunter, TicketHunterSchema 
+from datetime import date
+import asyncio
+import json
 
 app = FastAPI()
 
-@app.get(
+@app.post(
     path='/tickets', 
     response_class=JSONResponse, 
     summary="拿到指定時間最便宜機票"
 )
-def get_tickets(request: Request) -> JSONResponse:
-    thunt = ticket_hunter()
-    req = [
-        {
-            "endDate": "2024-5-15",
-            "startDate": "2024-5-1",
-            'departure': 'TPE',
-            'arrival': 'TYO',
-            'adult': 1
-        },
-    ]
-    tickets = thunt.get_tickets(req)
-    return JSONResponse({'success': True, 'result': tickets})
+async def get_tickets(
+    request_form: Annotated[
+        List[TicketHunterSchema.RequestForm],
+        Body(
+            examples=[
+                [
+                    {
+                        "startDate": "2024-09-01",
+                        "endDate": "2024-09-15",
+                        'departure': 'TPE',
+                        'arrival': 'TYO',
+                        'adult': 1
+                    },
+                    {
+                        "startDate": "2024-09-08",
+                        "endDate": "2024-09-22",
+                        'departure': 'TPE',
+                        'arrival': 'TYO',
+                        'adult': 1
+                    }
+                ]
+            ]
+        )
+    ],
+) -> JSONResponse:
+    thunt = TicketHunter()
+    results = []
+    for form in request_form:
+        result = await thunt.get_tickets(form)
+        results.append(result)
+    return JSONResponse({'success': True, 'result': results})
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8080, reload=True)

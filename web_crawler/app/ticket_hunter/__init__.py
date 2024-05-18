@@ -1,5 +1,7 @@
 __all__ = [
-    "ticket_hunter",
+    "TicketHunter",
+    "TicketHunterSchema"
 ]
 
-from ._main import ticket_hunter
+from ._service import TicketHunter
+from ._schema import TicketHunterSchema
