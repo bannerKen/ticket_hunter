@@ -3,7 +3,6 @@ __all__ = [
     "Direction"
 ]
 
-from datetime import date
 from pydantic import BaseModel
 from enum import Enum
 
@@ -13,8 +12,8 @@ class TicketHunterSchema:
         ticket criterea form received from client.
         """
 
-        endDate: date
-        startDate: date
+        endDate: str
+        startDate: str
         departure: str
         arrival: str
         adult: int

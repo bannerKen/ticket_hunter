@@ -1,10 +1,8 @@
-from fastapi import FastAPI, Request, Body, Query
-from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, Body
 from fastapi.responses import JSONResponse
 import uvicorn
 from typing import Annotated, List
 from ticket_hunter import TicketHunter, TicketHunterSchema 
-from datetime import date
 import asyncio
 import json
 
@@ -22,15 +20,15 @@ async def get_tickets(
             examples=[
                 [
                     {
-                        "startDate": "2024-09-01",
-                        "endDate": "2024-09-15",
+                        "startDate": "2024-9-1",
+                        "endDate": "2024-9-15",
                         'departure': 'TPE',
                         'arrival': 'TYO',
                         'adult': 1
                     },
                     {
-                        "startDate": "2024-09-08",
-                        "endDate": "2024-09-22",
+                        "startDate": "2024-9-8",
+                        "endDate": "2024-9-22",
                         'departure': 'TPE',
                         'arrival': 'TYO',
                         'adult': 1
