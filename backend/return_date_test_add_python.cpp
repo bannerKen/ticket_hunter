@@ -25,7 +25,7 @@ int main() {
         // get key value from json
         string sdate = req_json["startDate"];
         string edate = req_json["endDate"];
-        string departure = req_json["departure"];
+        string departure = req_json["depart"];
         string arrival = req_json["arrival"];
         string adult = req_json["adult"];
         string sy = sdate.substr (0,4);
@@ -44,7 +44,7 @@ int main() {
         for(int i=0; i<date.size(); i++){
             dateGroup[i]["startDate"] = date[i].first;
             dateGroup[i]["endDate"] = date[i].second;
-            dateGroup[i]["departure"] = departure;
+            dateGroup[i]["depart"] = departure;
             dateGroup[i]["arrival"] = arrival;
             dateGroup[i]["adult"] = adult;
         }
@@ -57,24 +57,24 @@ int main() {
             /* for send to python start */
 
             // create python port
-            Client client("localhost", 5000);
+            Client client("localhost", 8081);
             //send to python port
             auto res = client.Post("/process_data", json(dateGroup).dump(), "application/json");
 
             //check send success or fail
-            if (res && res->status == 200) {
+            //if (res && res->status == 200) {
                 // 解析返回的 JSON 數據
                 //json res_json = json::parse(res->body);
-                vector<json> vec_json_from_python = json::parse(res_body);
+                vector<json> vec_json_from_python = json::parse(res->body);
 
                 // 提取返回的結果
                 //int result_a = res_json["result_a"];
 
                 // 打印返回的結果
                 //std::cout << "Result a: " << result_a << std::endl;
-            } else {
-                std::cerr << "Error: Cannot connect to the server or invalid response" << std::endl;
-            }
+            //} else {
+            //    std::cerr << "Error: Cannot connect to the server or invalid response" << std::endl;
+            //}
 
             /* for send to python end */
 
